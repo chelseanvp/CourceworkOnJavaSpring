@@ -21,11 +21,13 @@ public class MainController {
     public String greeting(Model model,
                            @AuthenticationPrincipal User user
     ) {
-        if(user != null && user.getRoles().contains(Role.USER)){
+        if(user != null && user.getRoles().contains(Role.ADMIN)){
+            model.addAttribute("isAdmin","admin");
+        } else if(user != null && user.getRoles().contains(Role.USER)){
             model.addAttribute("user","user");
         }
-        Iterable<Item> messages = itemRepo.findAll();
-        model.addAttribute("messages",messages);
+        Iterable<Item> items = itemRepo.findAll();
+        model.addAttribute("items",items);
         return "greeting";
     }
 
@@ -33,36 +35,16 @@ public class MainController {
     public String search(
             @RequestParam(required = false,defaultValue = "") String tag,
             Model model){
-        Iterable<Item> messages = itemRepo.findAll();
+        Iterable<Item> items = itemRepo.findAll();
         if(tag != null && !tag.isEmpty()){
-            messages = itemRepo.findByTag(tag);
+            items = itemRepo.findByTag(tag);
         }else {
-            messages = itemRepo.findAll();
+            items = itemRepo.findAll();
         }
-        model.addAttribute("messages",messages);
+        model.addAttribute("items",items);
         model.addAttribute("tag",tag);
         return "greeting";
     }
 
-    @GetMapping("/user")
-    public String main(
-            @AuthenticationPrincipal User user,
-            Model model){
-        if(user.getRoles().contains(Role.ADMIN)){
-            model.addAttribute("isAdmin","admin");
-        }
-        return "user";
-    }
 
-    @PostMapping("/user")
-    public String add(
-            @AuthenticationPrincipal User user,
-            @RequestParam String text,
-            @RequestParam String tag,
-            @RequestParam Integer year
-    ){
-        Item message = new Item(text,tag,year,user);
-        itemRepo.save(message);
-        return "user";
-    }
 }

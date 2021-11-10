@@ -18,7 +18,7 @@ List of users
         <tr th:each="user: ${users}">
             <td th:text="${user.username}"></td>
             <td th:each="role: ${user.roles}"><div th:text="${role} + ','"></div></td>
-            <td><a th:href="@{'/user/' + ${user.id}}">edit</a></td>
+            <td><a th:href="@{'/admin/' + ${user.id}}">edit</a></td>
         </tr>
     </tbody>
 </table>

@@ -9,9 +9,7 @@
     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
     <input type="submit" value="Sign Out"/>
 </form>
-<div th:if="${isAdmin}">
-    <span><a href="/user">User list</a></span>
-</div>
+<a th:href="@{/userProfile}"></a>
 <div>
     <form method="post">
         <input type="text" name="text" placeholder="Введите сообщение ">
@@ -45,5 +43,27 @@
         <button type="submit">Добавить</button>
     </form>
 </div>
+<table>
+<tr>
+    <td>ID</td>
+    <td>Description</td>
+    <td>Tag</td>
+    <td>Year</td>
+    <td>Owner</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr th:each="item: ${items}">
+    <td th:text="${item.id}"></td>
+    <td th:text="${item.text}"></td>
+    <td><i th:text="${item.tag}"></i></td>
+    <td><i th:text="${item.year}"></i></td>
+    <td><strong th:text="${item.authorName}"></strong></td>
+    <td><form th:action="@{'/item/edit/' + ${item.id}}" method="post" style="display: inline;">
+        <button type="submit" >Edit</button></form></td>
+    <td><form th:action="@{'/item/' + ${item.id}}" method="get" style="display: inline;">
+        <button type="submit" th:value="${item.author}" name="author" >Delete</button></form></td>
+</tr>
+</table>
 </body>
 </html>

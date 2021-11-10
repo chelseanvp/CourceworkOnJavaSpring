@@ -14,6 +14,15 @@ public class Item {
     private String text;
     private String tag;
     private Integer year;
+    private Integer visits = 0;
+
+    public Integer getVisits() {
+        return visits;
+    }
+
+    public void setVisits(Integer visits) {
+        this.visits = visits;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -41,11 +50,12 @@ public class Item {
 
     public Item(){};
 
-    public Item(String text, String tag, Integer year, User user) {
+    public Item(String text, String tag, Integer year, Integer visits, User user) {
         this.author = user;
         this.text = text;
         this.tag = tag;
         this.year = year;
+        this.visits = visits;
     }
 
     public Integer getId() {

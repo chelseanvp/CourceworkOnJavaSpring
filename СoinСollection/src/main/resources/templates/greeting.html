@@ -6,22 +6,28 @@
 </head>
 <body>
 <div th:if="${user}">
-    <a th:href="@{/user}">Main page</a></br>
+    <a th:href="@{/user}"> Personal area</a></br>
     <form th:action="@{/logout}" method="post">
         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <input type="submit" value="Sign Out"/>
+</div>
+
+<div th:if="${isAdmin}">
+    <span><a href="/admin">Admin room</a></span><form th:action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <input type="submit" value="Sign Out"/>
 </div>
 <form method="post" action="/">
     <input type="text" placeholder="Searching by teg: " name="tag" th:value="${tag}">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
     <button type="submit">Search</button>
 </form>
-<tr th:each="message: ${messages}">
-    <td th:text="${message.id}"></td>
-    <td th:text="'Description: '+ ${message.text}"></td>
-    <td><i th:text="'Tag: ' + ${message.tag}"></i></td>
-    <td><i th:text="${'Year: ' + message.year}"></i></td>
-    <strong th:text="'Owner: ' + ${message.authorName}"></strong><br/>
+<tr th:each="item: ${items}">
+    <td th:text="${item.id}"></td>
+    <td th:text="'Description: '+ ${item.text}"></td>
+    <td><i th:text="'Tag: ' + ${item.tag}"></i></td>
+    <td><i th:text="${'Year: ' + item.year}"></i></td>
+    <strong th:text="'Owner: ' + ${item.authorName}"></strong><br/>
 </tr>
 </body>
 </html>
