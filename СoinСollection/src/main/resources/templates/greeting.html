@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:if="${user}">
+    <a th:href="@{/user}">Main page</a></br>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+        <input type="submit" value="Sign Out"/>
+</div>
+<form method="post" action="/">
+    <input type="text" placeholder="Searching by teg: " name="tag" th:value="${tag}">
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+    <button type="submit">Search</button>
+</form>
+<tr th:each="message: ${messages}">
+    <td th:text="${message.id}"></td>
+    <td th:text="'Description: '+ ${message.text}"></td>
+    <td><i th:text="'Tag: ' + ${message.tag}"></i></td>
+    <td><i th:text="${'Year: ' + message.year}"></i></td>
+    <strong th:text="'Owner: ' + ${message.authorName}"></strong><br/>
+</tr>
+</body>
+</html>

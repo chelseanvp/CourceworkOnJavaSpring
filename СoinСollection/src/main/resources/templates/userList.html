@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+List of users
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Role</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each="user: ${users}">
+            <td th:text="${user.username}"></td>
+            <td th:each="role: ${user.roles}"><div th:text="${role} + ','"></div></td>
+            <td><a th:href="@{'/user/' + ${user.id}}">edit</a></td>
+        </tr>
+    </tbody>
+</table>
+
+
+</body>
+</html>
