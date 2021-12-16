@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ItemPage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<header th:insert="static/header :: header"></header>
+
+    <div class="container">
+        <h1 class="mt-5" th:text = "${item.text}"></h1>
+        <p class="lead text-success" th:text = "'Author: ' + ${item.author.getUsername()}"></p>
+        <p class="lead text-success" th:text = "'Personal ID: ' + ${item.id}"></p>
+        <p class="lead text-success" th:text = "'Date: ' + ${item.year}"></p>
+        <p class="lead text-warning" th:text = "'Number of visits: ' + ${item.visits}"></p>
+    </div>
+
+<footer th:insert="static/footer :: footer"></footer>
+
+</body>
+</html>

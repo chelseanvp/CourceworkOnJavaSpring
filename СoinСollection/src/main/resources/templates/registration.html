@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <head>
     <title>Spring Security Example </title>
 </head>
-<body>
-Add new user
+<body class="text-center">
+<header th:insert="static/header :: header"></header>
+
 <div th:if="${message}">
     <div th:text="${message}"></div>
 </div>
-<form th:action="@{/registration}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+
+<form th:action="@{/registration}" method="post" class="form-signin">
+
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Registration</h1>
+    </div>
+
+    <div><label> Email: <input type="email" name="email" class="form-control" placeholder="Email address" required="" autofocus=""/> </label></div>
+
+    <div><label> User Name : <input type="text" class="form-control" name="username" placeholder="Name" required="" autofocus=""/> </label></div>
+
+    <div><label> Password: <input type="password" name="password" class="form-control" placeholder="Password" required=""/> </label></div>
+
     <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-    <div><input type="submit" value="Sign In"/></div>
+    <div><input class="btn btn-primary" type="submit" value="Sign In"/></div>
+    <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
 </form>
 </body>
 </html>

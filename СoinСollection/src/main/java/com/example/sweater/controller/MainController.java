@@ -18,12 +18,14 @@ public class MainController {
     private ItemRepo itemRepo;
 
     @GetMapping("/")
-    public String greeting(Model model,
-                           @AuthenticationPrincipal User user
+    public String greeting(
+            Model model, @AuthenticationPrincipal User user
     ) {
         if(user != null && user.getRoles().contains(Role.ADMIN)){
-            model.addAttribute("isAdmin","admin");
+            model.addAttribute("userRole","admin");
+            model.addAttribute("admin","admin");
         } else if(user != null && user.getRoles().contains(Role.USER)){
+            model.addAttribute("userRole","user");
             model.addAttribute("user","user");
         }
         Iterable<Item> items = itemRepo.findAll();
@@ -34,12 +36,20 @@ public class MainController {
     @PostMapping("/")
     public String search(
             @RequestParam(required = false,defaultValue = "") String tag,
+            @AuthenticationPrincipal User user,
             Model model){
         Iterable<Item> items = itemRepo.findAll();
         if(tag != null && !tag.isEmpty()){
             items = itemRepo.findByTag(tag);
         }else {
             items = itemRepo.findAll();
+        }
+        if(user != null && user.getRoles().contains(Role.ADMIN)){
+            model.addAttribute("userRole","admin");
+            model.addAttribute("admin","admin");
+        } else if(user != null && user.getRoles().contains(Role.USER)){
+            model.addAttribute("userRole","user");
+            model.addAttribute("user","user");
         }
         model.addAttribute("items",items);
         model.addAttribute("tag",tag);

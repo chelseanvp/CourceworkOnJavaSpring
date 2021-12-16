@@ -1,7 +1,6 @@
 package com.example.sweater.controller;
 
 import com.example.sweater.domain.Item;
-import com.example.sweater.domain.Role;
 import com.example.sweater.domain.User;
 import com.example.sweater.repos.ItemRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class UserController {
             Model model){
         Iterable<Item> items = itemRepo.findByAuthor(user);
         model.addAttribute("items",items);
-        return "user";
+        return "ownUserPageView";
     }
 
     @PostMapping("/user")
@@ -38,6 +37,6 @@ public class UserController {
         itemRepo.save(message);
         Iterable<Item> items = itemRepo.findByAuthor(user);
         model.addAttribute("items",items);
-        return "user";
+        return "ownUserPageView";
     }
 }

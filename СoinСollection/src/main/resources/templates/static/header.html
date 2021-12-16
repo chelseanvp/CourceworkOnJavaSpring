@@ -1,0 +1,53 @@
+<div th:fragment = "header">
+    <header class="p-3 bg-dark text-white">
+        <div class="container mt-1">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
+                    <li><div th:if="${user}">
+                    <a href="/user" class="nav-link px-2 text-white">User</a>
+                    </div></li>
+                    <li><div th:if="${admin}">
+                        <a href="/admin" class="nav-link px-2 text-white">Admin</a>
+                    </div></li>
+                    <li><a href="/faqs" class="nav-link px-2 text-white">FAQs</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                </ul>
+
+                <form method="post" action="/" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search... " name="tag" th:value="${tag}" aria-label="Search">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                </form>
+
+                <div th:switch="${userRole}" class="text-end">
+                    <div th:case="'admin'">
+                        <form action="/logout" method="post" style="display: inline;">
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                            <button type="submit" class="btn btn-outline-light me-2" >Sign Out</button>
+                        </form>
+                    </div>
+
+                    <div th:case="'user'">
+                        <form action="/logout" method="post" style="display: inline;">
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                            <button type="submit" class="btn btn-outline-light me-2" >Sign Out</button>
+                        </form>
+                    </div>
+
+                    <div th:case="*">
+                        <form action="/login" method="get" style="display: inline;">
+                            <button type="submit" class="btn btn-outline-light me-2" >Login</button>
+                        </form>
+                        <form action="/registration" method="get" style="display: inline;">
+                            <button type="submit" class="btn btn-warning">Sign-up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
